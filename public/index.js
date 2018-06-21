@@ -20,14 +20,18 @@ var HomePage = {
     addPerson: function() {
 
       if ( this.newPersonName && this.newPersonBio ) {
-        var tempPerson = {
+        var clientParams = {
                           name: this.newPersonName,
-                          bio: this.newPersonBio,
-                          bioVisible: false
+                          bio: this.newPersonBio
                           };
-        this.people.push(tempPerson);
-        this.newPersonName = "";
-        this.newPersonBio = "";
+
+        axios
+        .post('/api/people', clientParams)
+        .then(function(response) {
+          this.people.push(response.data);
+          this.newPersonName = "";
+          this.newPersonBio = "";
+        }.bind(this));
       }
     },
     deletePerson: function(inputPerson) {
