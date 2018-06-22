@@ -6,7 +6,8 @@ var HomePage = {
     return {
       people: [],
       newPersonName: "",
-      newPersonBio: ""
+      newPersonBio: "",
+      errors: []
     };
   },
   created: function() {
@@ -19,7 +20,7 @@ var HomePage = {
   methods: {
     addPerson: function() {
 
-      if ( this.newPersonName && this.newPersonBio ) {
+      // if ( this.newPersonName && this.newPersonBio ) {
         var clientParams = {
                           name: this.newPersonName,
                           bio: this.newPersonBio
@@ -31,8 +32,12 @@ var HomePage = {
           this.people.push(response.data);
           this.newPersonName = "";
           this.newPersonBio = "";
+          this.errors = [];
+        }.bind(this))
+        .catch(function(error) {
+          this.errors = error.response.data.errors;
         }.bind(this));
-      }
+      // }
     },
     deletePerson: function(inputPerson) {
       var index = this.people.indexOf(inputPerson);
