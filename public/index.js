@@ -7,6 +7,8 @@ var HomePage = {
       people: [],
       newPersonName: "",
       newPersonBio: "",
+      nameFilter: "",
+      bioFilter: "",
       errors: []
     };
   },
@@ -46,6 +48,11 @@ var HomePage = {
     toggleBio: function(inputPerson) {
       inputPerson.bioVisible = !inputPerson.bioVisible;
       // this.$set(inputPerson, "bioVisible", !(inputPerson.bioVisible))
+    },
+    isValidPerson: function(inputPerson) {
+      var validName = inputPerson.name.toLowerCase().includes(this.nameFilter.toLowerCase());
+      var validBio = inputPerson.bio.toLowerCase().includes(this.bioFilter.toLowerCase());
+      return validName && validBio;
     }
   },
   computed: {}
@@ -60,5 +67,23 @@ var router = new VueRouter({
 
 var app = new Vue({
   el: "#vue-app",
+  data: function() {
+    return {
+
+    }
+  },
   router: router
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
