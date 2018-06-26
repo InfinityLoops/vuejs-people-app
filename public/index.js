@@ -10,7 +10,8 @@ var HomePage = {
       nameFilter: "",
       bioFilter: "",
       errors: [],
-      sortAttribute: "name"
+      sortAttribute: "name",
+      sortAscending: true
     };
   },
   created: function() {
@@ -56,6 +57,12 @@ var HomePage = {
       return validName && validBio;
     },
     setAttribute: function(inputAttribute) {
+      if (this.sortAttribute === inputAttribute) {
+        this.sortAscending = !this.sortAscending;
+      } else {
+        this.sortAscending = true;
+      }
+      
       this.sortAttribute = inputAttribute;
     }
   },
@@ -64,7 +71,13 @@ var HomePage = {
       return this.people.sort(function(person1, person2) {
         var lowerAttribute1 = person1[this.sortAttribute].toLowerCase();
         var lowerAttribute2 = person2[this.sortAttribute].toLowerCase();
-        return lowerAttribute1.localeCompare(lowerAttribute2);
+
+        if (this.sortAscending) {
+          return lowerAttribute1.localeCompare(lowerAttribute2);
+        } else {
+          return lowerAttribute2.localeCompare(lowerAttribute1);
+        }
+
       }.bind(this));
     }
   }
