@@ -47,10 +47,12 @@
     </div>
 
     <div>
-      <div v-for="person in people" v-if="isValidPerson(person)">
-        <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>
-        <h3 v-if="person.bioVisible">{{ person.bio }} <button v-on:click="deletePerson(person)">Delete</button></h3>
-      </div>
+      <transition-group name="slide-right">
+        <div v-for="person in people" v-if="isValidPerson(person)" v-bind:key="person.id">
+          <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>
+          <h3 v-if="person.bioVisible">{{ person.bio }} <button v-on:click="deletePerson(person)">Delete</button></h3>
+        </div>
+      </transition-group>
     </div>
 
     <h4>Number of People: {{ people.length }}</h4>
